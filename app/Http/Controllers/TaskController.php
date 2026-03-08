@@ -7,59 +7,68 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->middleware('permission:task.view')->only(['index', 'show']);
+        $this->middleware('permission:task.create')->only(['create', 'store']);
+        $this->middleware('permission:task.edit')->only(['edit', 'update']);
+        $this->middleware('permission:task.delete')->only(['destroy']);
+    }
+
     public function index()
     {
-        //
+        $tasks = Task::latest()->paginate(10);
+        return view('tasks.index', compact('tasks'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('tasks.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|max:150',
+            'description' => 'nullable',
+            'status' => 'required'
+        ]);
+
+        Task::create($validated);
+
+        return redirect()->route('tasks.index')
+            ->with('success', 'Tarea creada correctamente');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Task $task)
     {
-        //
+        return view('tasks.show', compact('task'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Task $task)
     {
-        //
+        return view('tasks.edit', compact('task'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Task $task)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|max:150',
+            'description' => 'nullable',
+            'status' => 'required'
+        ]);
+
+        $task->update($validated);
+
+        return redirect()->route('tasks.index')
+            ->with('success', 'Tarea actualizada');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Task $task)
     {
-        //
+        $task->delete();
+
+        return redirect()->route('tasks.index')
+            ->with('success', 'Tarea eliminada');
     }
 }
