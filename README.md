@@ -1,59 +1,186 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel Seguridad y Autenticación
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Descripción del proyecto
 
-## About Laravel
+Este proyecto corresponde a la implementación de una aplicación en
+**Laravel** utilizando autenticación, autorización basada en roles y
+permisos, y un CRUD protegido mediante control de acceso.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Se desarrolló como parte de la actividad académica de seguridad web,
+aplicando:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+-   Autenticación con starter kit de Laravel
+-   Gestión de roles y permisos con Spatie Laravel Permission
+-   CRUD protegido de tareas (`Task`)
+-   Vista de usuarios con acceso restringido por rol
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+------------------------------------------------------------------------
 
-## Learning Laravel
+## Tecnologías utilizadas
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+-   PHP 8+
+-   Laravel 12
+-   Laravel Breeze
+-   Laravel Permission (Spatie)
+-   Blade
+-   Tailwind CSS
+-   SQLite
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+------------------------------------------------------------------------
 
-## Laravel Sponsors
+## Funcionalidades implementadas
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Autenticación
 
-### Premium Partners
+Se instaló el starter kit de Laravel Breeze para disponer de:
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+-   Registro de usuarios
+-   Inicio de sesión
+-   Cierre de sesión
+-   Gestión básica de perfil
 
-## Contributing
+### Roles y permisos
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Se definieron tres roles principales:
 
-## Code of Conduct
+-   **Administrador**
+-   **Editor**
+-   **Usuario**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Permisos configurados:
 
-## Security Vulnerabilities
+-   `task.view`
+-   `task.create`
+-   `task.edit`
+-   `task.delete`
+-   `users.view`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### CRUD de tareas
 
-## License
+El módulo de tareas permite:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+-   Crear tareas
+-   Listar tareas
+-   Editar tareas
+-   Eliminar tareas
+-   Visualizar detalle
+
+Acceso según rol:
+
+-   **Administrador:** CRUD completo
+-   **Editor:** CRUD completo
+-   **Usuario:** solo visualización
+
+### Gestión de usuarios
+
+Se implementó una vista de usuarios accesible únicamente para:
+
+-   **Administrador**
+
+------------------------------------------------------------------------
+
+## Instalación del proyecto
+
+### 1. Clonar repositorio
+
+``` bash
+git clone https://github.com/hferrer08/laravel_seguridad_autenticacion.git
+```
+
+### 2. Entrar al proyecto
+
+``` bash
+cd laravel_seguridad_autenticacion
+```
+
+### 3. Instalar dependencias PHP
+
+``` bash
+composer install
+```
+
+### 4. Instalar dependencias frontend
+
+``` bash
+npm install
+```
+
+### 5. Copiar variables de entorno
+
+``` bash
+cp .env.example .env
+```
+
+### 6. Generar clave
+
+``` bash
+php artisan key:generate
+```
+
+### 7. Ejecutar migraciones
+
+``` bash
+php artisan migrate
+```
+
+### 8. Ejecutar seeders
+
+``` bash
+php artisan db:seed
+```
+
+### 9. Levantar frontend
+
+``` bash
+npm run dev
+```
+
+### 10. Levantar servidor Laravel
+
+``` bash
+php artisan serve
+```
+
+------------------------------------------------------------------------
+
+## Usuarios de prueba
+
+### Administrador
+
+-   correo: admin@test.com
+-   contraseña: password
+
+### Editor
+
+-   correo: editor@test.com
+-   contraseña: password
+
+### Usuario
+
+-   correo: user@test.com
+-   contraseña: password
+
+------------------------------------------------------------------------
+
+## Repositorio GitHub
+
+Repositorio oficial del proyecto:
+
+https://github.com/hferrer08/laravel_seguridad_autenticacion
+
+------------------------------------------------------------------------
+
+## Objetivo académico cumplido
+
+El proyecto demuestra:
+
+-   autenticación segura
+-   autorización por roles
+-   separación de privilegios
+-   protección de funcionalidades sensibles
+
+------------------------------------------------------------------------
+
+## Autor
+
+Hubert Ferrer Guerrero
